@@ -21,7 +21,7 @@ class BloodOath
         end
     end
 
-    # testing purpose
+    # testing purpose. If follower already belongs to cult, follower/cult passed into separate array
     def self.all_attempts
         @@attempted_second_oath
     end
@@ -29,9 +29,21 @@ class BloodOath
     def self.all
         @@all_oaths
     end
-  
+
     def self.check_existing_oath(follower, cult)
         @@all_oaths.one?{|oath| oath.follower == follower && oath.cult == cult }
+    end
+    
+    def self.all_followers_of(cult)
+        @@all_oaths.select{|oath| oath.cult == cult}
+    end
+    
+    def self.find_cult_by_follower(follower)
+        @@all_oaths.select{|oath| oath.follower == follower}
+    end
+
+    def initiation_date
+        @initiation_date
     end
 
 end
